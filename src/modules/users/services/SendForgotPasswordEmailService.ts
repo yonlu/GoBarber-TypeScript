@@ -5,8 +5,6 @@ import IUsersRepository from '../repositories/IUsersRepository';
 import IMailProvider from '@shared/container/providers/MailProvider/models/IMailProvider';
 import IUserTokensRepository from '../repositories/IUserTokensRepository';
 
-// import User from '../infra/typeorm/entities/User';
-
 interface IRequest {
   email: string;
 }
@@ -33,10 +31,20 @@ class SendForgotEmailPasswordEmailService {
 
     const { token } = await this.userTokensRepository.generate(user.id);
 
-    await this.mailProvider.sendMail(
-      email,
-      `Password recovery request has been received: ${token}`,
-    );
+    await this.mailProvider.sendMail({
+      to: {
+        name: user.name,
+        email: user.email,
+      },
+      subject: '[GoBarber] Password reset request',
+      templateData: {
+        template: 'Hello {{name}},: {{token}}',
+        variables: {
+          name: user.name,
+          token,
+        },
+      },
+    });
   }
 }
 
