@@ -17,7 +17,7 @@ export default class ProviderAppointmentsController {
       day,
       month,
       year,
-    })
+    });
 
     return response.json(appointments);
   }
