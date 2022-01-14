@@ -24,7 +24,11 @@
     "no-underscore-dangle": "off",
     "prettier/prettier": "error",
     "class-methods-use-this": "off",
-    "@typescript-eslint/camelcase": "off",
+    "camelcase": ["error"],
+    "@typescript-eslint/naming-convention": [
+        "allow",
+        { "selector": "property", "format": ["snake_case"] }
+    ],
     "no-useless-constructor": "off",
     "import/no-duplicates": "off",
     "@typescript-eslint/no-unused-vars": [
@@ -43,11 +47,11 @@
       {
         "ts": "never"
       }
-    ],
-    "settings": {
-      "import/resolver": {
-        "typescript": {}
-      }
+    ]
+  },
+  "settings": {
+    "import/resolver": {
+      "typescript": {}
     }
   }
 }
