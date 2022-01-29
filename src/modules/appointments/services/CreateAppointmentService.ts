@@ -3,9 +3,9 @@ import { injectable, inject } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
 
+import INotificationsRepository from '@modules/notifications/repositories/INotificationsRepository';
 import Appointment from '../infra/typeorm/entities/Appointment';
 import IAppointmentsRepository from '../repositories/IAppointmentsRepository';
-import INotificationsRepository from '@modules/notifications/repositories/INotificationsRepository';
 
 interface IRequest {
   provider_id: string;
@@ -44,10 +44,11 @@ class CreateAppointmentService {
       );
     }
 
-    const findAppointmentInSameDate = await this.appointmentsRepository.findByDate(
-      appointmentDate,
-      provider_id,
-    );
+    const findAppointmentInSameDate =
+      await this.appointmentsRepository.findByDate(
+        appointmentDate,
+        provider_id,
+      );
 
     if (findAppointmentInSameDate) {
       throw new AppError('This appointment is already booked');
@@ -63,8 +64,8 @@ class CreateAppointmentService {
 
     await this.notificationsRepository.create({
       recipient_id: provider_id,
-      content: `New appointment for ${dateFormatted}`
-    })
+      content: `New appointment for ${dateFormatted}`,
+    });
 
     return appointment;
   }

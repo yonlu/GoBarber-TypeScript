@@ -46,15 +46,18 @@ class AuthenticateUserService {
 
     const { secret, expiresIn } = authConfig.jwt;
 
-    const token = sign({}, secret, {
-      subject: user.id,
-      expiresIn,
-    });
+    if (secret) {
+      const token = sign({}, secret, {
+        subject: user.id,
+        expiresIn,
+      });
 
-    return {
-      user,
-      token,
-    };
+      return {
+        user,
+        token,
+      };
+    }
+    throw new AppError('Secret not configured');
   }
 }
 

@@ -23,14 +23,13 @@ class ListProviderAppointmentsService {
     year,
     month,
   }: IRequest): Promise<Appointment[]> {
-    const appointments = await this.appointmentsRepository.findAllInDayFromProvider(
-      {
+    const appointments =
+      await this.appointmentsRepository.findAllInDayFromProvider({
         provider_id,
         day,
         year,
         month,
-      },
-    );
+      });
 
     return appointments;
   }

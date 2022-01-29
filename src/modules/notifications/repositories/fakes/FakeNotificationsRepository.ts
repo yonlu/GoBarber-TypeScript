@@ -10,11 +10,11 @@ class NotificationsRepository implements INotificationsRepository {
 
   public async create({
     content,
-    recipient_id
+    recipient_id,
   }: ICreateNotificationDTO): Promise<Notification> {
     const notification = new Notification();
 
-    Object.assign(notification, { id: ObjectID(), content, recipient_id });
+    Object.assign(notification, { id: new ObjectID(), content, recipient_id });
 
     this.notifications.push(notification);
 

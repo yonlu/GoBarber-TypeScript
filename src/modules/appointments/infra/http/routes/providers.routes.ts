@@ -9,8 +9,10 @@ import ProviderDayAvailabilityController from '../controllers/ProviderDayAvailab
 const providersRouter = Router();
 
 const providersController = new ProvidersController();
-const providerMonthAvailabilityController = new ProviderMonthAvailabilityController();
-const providerDayAvailabilityController = new ProviderDayAvailabilityController();
+const providerMonthAvailabilityController =
+  new ProviderMonthAvailabilityController();
+const providerDayAvailabilityController =
+  new ProviderDayAvailabilityController();
 
 providersRouter.use(ensureAuthenticated);
 
@@ -21,7 +23,7 @@ providersRouter.get(
   celebrate({
     [Segments.PARAMS]: {
       provider_id: Joi.string().uuid().required(),
-    }
+    },
   }),
   providerMonthAvailabilityController.index,
 );
@@ -31,7 +33,7 @@ providersRouter.get(
   celebrate({
     [Segments.PARAMS]: {
       provider_id: Joi.string().uuid().required(),
-    }
+    },
   }),
   providerDayAvailabilityController.index,
 );
